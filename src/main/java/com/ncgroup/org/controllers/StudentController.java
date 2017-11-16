@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,8 +27,9 @@ public class StudentController {
         return new ResponseEntity<List<Student>>(students, HttpStatus.OK);
     }
 
+    //При помощи аннотации @RequestBody Spring автоматически из JSON переводит в JAVA объект Student
     @RequestMapping(path = "/api/v1/frontend-api/students", method = RequestMethod.POST)
-    public ResponseEntity<Student> createStudent(Student student) {
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         studentService.createStudent(student);
 
         return new ResponseEntity<Student>(HttpStatus.CREATED);
